@@ -188,13 +188,26 @@ void updateClockDisplay() {
 void sendAlarmTime() {
   int clockCode = getTimeSet(rotaryEncoderPos);
   int sendCode = SEND_CODE_SET_ALARM + clockCode;
-  rcSwitch.send(sendCode, SEND_BITS);
+  
+  //send serval times and hope the 433MHz receiver gets at least one of them
+  for (int i = 0; i < 5; i++) {
+    rcSwitch.send(sendCode, SEND_BITS);
+    delay(10);
+  }
 }
 
 void sendShowAlarmSignal() {
-  rcSwitch.send(SEND_CODE_SHOW_NEXT, SEND_BITS);
+  //send serval times and hope the 433MHz receiver gets at least one of them
+  for (int i = 0; i < 5; i++) {
+    rcSwitch.send(SEND_CODE_SHOW_NEXT, SEND_BITS);
+    delay(10);
+  }
 }
 
 void sendDeleteAllSignal() {
-  rcSwitch.send(SEND_CODE_DELETE_ALL, SEND_BITS);
+  //send serval times and hope the 433MHz receiver gets at least one of them
+  for (int i = 0; i < 5; i++) {
+    rcSwitch.send(SEND_CODE_DELETE_ALL, SEND_BITS);
+    delay(10);
+  }
 }
