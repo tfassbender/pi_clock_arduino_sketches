@@ -147,9 +147,8 @@ void loop()
   }
   if (currentTime - fiveSecondsDisplayStartTime > 5000) {
     //set the displayed text back to the last known time
-    
+    display.showNumberDecEx(lastKnownClockTime, points, true);
   }
-  
   
   //receive remote alarm settings from the rc-switch
   receiveRemoteAlarm();
@@ -183,7 +182,7 @@ void handleInput(String inputText) {
 }
 
 void receiveRemoteAlarm() {
-  if (rcSwitch.available()){
+  if (rcSwitch.available()) {
     int received = rcSwitch.getReceivedValue();
     int bitLength = rcSwitch.getReceivedBitlength();
     
@@ -362,4 +361,6 @@ void displayForFiveSeconds(String inputText) {
   }
   //set the counter for the five seconds display
   fiveSecondsDisplayStartTime = millis();
+  //also reset the brightness update time because that causes the last known time to reapear
+  lastBrightnessUpdateTime = millis();
 }
